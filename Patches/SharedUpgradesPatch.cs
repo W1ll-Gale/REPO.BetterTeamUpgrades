@@ -25,11 +25,11 @@ namespace BetterTeamUpgrades.Patches
             if (toggle == null || !toggle.toggleState) return;
 
             _targetViewID = (int)AccessTools.Field(typeof(ItemToggle), "playerTogglePhotonID").GetValue(toggle);
-            _targetPlayerName = (string)AccessTools.Field(typeof(ItemToggle), "playerToggleName").GetValue(toggle);
 
             PlayerAvatar avatar = SemiFunc.PlayerAvatarGetFromPhotonID(_targetViewID);
             if (avatar == null) return;
 
+            _targetPlayerName = (string)AccessTools.Field(typeof(PlayerAvatar), "playerName").GetValue(avatar);
             _targetSteamID = (string)AccessTools.Field(typeof(PlayerAvatar), "steamID").GetValue(avatar);
             _preUpgradeStats.Clear();
 
