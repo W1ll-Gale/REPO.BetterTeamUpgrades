@@ -1,4 +1,4 @@
-﻿using BetterTeamUpgrades.Config;
+using BetterTeamUpgrades.Config;
 using HarmonyLib;
 using System;
 using System.Collections.Generic;
@@ -18,13 +18,11 @@ namespace BetterTeamUpgrades.Patches
             SharedUpgradesPatch.VanillaKeys.Clear();
             SharedUpgradesPatch.ModdedKeys.Clear();
 
-            HashSet<string> vanillaFields = typeof(StatsManager)
-                .GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic)
-                .Select(f => f.Name)
-                .ToHashSet();
+            HashSet<string> vanillaFields = typeof(StatsManager).GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.NonPublic).Select(f => f.Name).ToHashSet();
 
-            foreach (string key in __instance.dictionaryOfDictionaries.Keys)
+            foreach (var kvp in Plugin.GetDictionaryOfDictionaries(__instance))
             {
+                string key = kvp.Key;
                 if (!key.StartsWith("playerUpgrade")) continue;
 
                 string displayKey = key.Replace("player", "");

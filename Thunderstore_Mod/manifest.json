@@ -1,9 +1,9 @@
 {
   "name": "BetterTeamUpgrades",
-  "version_number": "2.1.2",
+  "version_number": "2.2.1",
   "description": "A host-only, better alternative to shared upgrade mods like SharedUpgrades or TeamUpgrades. This mod implements a robust and maintainable shared upgrade system supporting vanilla and modded upgrades, plus late join upgrade syncing.",
   "website_url": "https://github.com/W1ll-Gale/BetterTeamUpgrades",
   "dependencies": [
-    "BepInEx-BepInExPack-5.4.2304"
+    "BepInEx-BepInExPack-5.4.2305"
   ]
 }

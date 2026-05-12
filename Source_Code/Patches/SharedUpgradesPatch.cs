@@ -1,4 +1,4 @@
-﻿using BetterTeamUpgrades.Config;
+using BetterTeamUpgrades.Config;
 using HarmonyLib;
 using Photon.Pun;
 using System.Collections.Generic;
@@ -44,14 +44,18 @@ namespace BetterTeamUpgrades.Patches
 
             if (StatsManager.instance != null)
             {
-                foreach (KeyValuePair<string, Dictionary<string, int>> kvp in StatsManager.instance.dictionaryOfDictionaries)
+                foreach (KeyValuePair<string, Dictionary<string, int>> kvp in Plugin.GetDictionaryOfDictionaries(StatsManager.instance))
                 {
                     if (kvp.Key.StartsWith("playerUpgrade"))
                     {
                         if (kvp.Value.TryGetValue(targetSteamID, out int val))
+                        {
                             preUpgradeStats[kvp.Key] = val;
+                        }
                         else
+                        {
                             preUpgradeStats[kvp.Key] = 0;
+                        }
                     }
                 }
             }
@@ -79,7 +83,7 @@ namespace BetterTeamUpgrades.Patches
                 return;
             }
 
-            foreach (KeyValuePair<string, Dictionary<string, int>> kvp in StatsManager.instance.dictionaryOfDictionaries)
+            foreach (KeyValuePair<string, Dictionary<string, int>> kvp in Plugin.GetDictionaryOfDictionaries(StatsManager.instance))
             {
                 if (!kvp.Key.StartsWith("playerUpgrade")) continue;
 

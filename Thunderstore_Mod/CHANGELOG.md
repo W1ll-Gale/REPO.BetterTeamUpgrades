@@ -1,3 +1,39 @@
+## [2.2.1] - 2026-05-12
+
+### Fixed
+
+- Fixed `MissingFieldException` in `StatsManager` caused by the latest game update where `dictionaryOfDictionaries` was changed to `internal` and its type was changed to `SortedDictionary`.
+- Implemented reflection-based access for `dictionaryOfDictionaries` to ensure future compatibility.
+
+## [2.2.0] - 2025-12-15
+
+### Added
+
+- Chance Upgrade Syncing: In the config you can change the chance that a player will get each upgrade that is shared.
+- Chance Late Join Syncing: In the config you can change the chance that each upgrade level which gets synced for late joining player.
+- Dynamic Upgrade Type Config Toggles: Upon loading the mod automatically detects all vanilla upgrades and all modded upgrades and add them to the config to be disabled or enabled by the host. This adds granular control of which mods get shared or synced.
+
+### Fixed
+
+- Fixed bug causing late join syncing to sync modded upgrades even when that config setting is off.
+- Fixed bug causing crash with last rolled back update.
+
+## [2.1.2] - 2025-12-02
+
+- Rollback to version 2.0.0 due to critical issues in 2.1.0.
+
+## [2.1.0] - 2025-12-02
+
+### Added
+
+- Configurable chance for upgrade sharing.
+- Configurable chance for late join upgrade sync.
+- Extra clarity in logging for exact player name.
+
+### Fixed
+
+- No longer attempts to sync late joining players in the menu lobby.
+
 ## [2.0.0] - 2025-11-29
 
 ### Added

@@ -1,10 +1,11 @@
-﻿using BepInEx;
+using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using BetterTeamUpgrades.Config;
 using BetterTeamUpgrades.Patches;
 using HarmonyLib;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
@@ -15,7 +16,7 @@ namespace BetterTeamUpgrades
     {
         private const string mod_guid = "MrBytesized.REPO.BetterTeamUpgrades";
         private const string mod_name = "Better Team Upgrades";
-        private const string mod_version = "2.2.0";
+        private const string mod_version = "2.2.1";
 
         private readonly Harmony harmony = new Harmony(mod_guid);
 
@@ -107,15 +108,30 @@ namespace BetterTeamUpgrades
                 return Plugin.Random.Next(min, max);
             }
         }
+
+        public static IEnumerable<KeyValuePair<string, Dictionary<string, int>>> GetDictionaryOfDictionaries(StatsManager instance)
+        {
+            if (instance == null) return Enumerable.Empty<KeyValuePair<string, Dictionary<string, int>>>();
+
+            FieldInfo field = AccessTools.Field(typeof(StatsManager), "dictionaryOfDictionaries");
+            if (field == null)
+            {
+                Log.LogError("StatsManager.dictionaryOfDictionaries field not found via reflection!");
+                return Enumerable.Empty<KeyValuePair<string, Dictionary<string, int>>>();
+            }
+
+            Object value = field.GetValue(instance);
+            if (value == null) return Enumerable.Empty<KeyValuePair<string, Dictionary<string, int>>>();
+
+            return (IEnumerable<KeyValuePair<string, Dictionary<string, int>>>)value;
+        }
     }
 
     public static class HarmonyExtensions
     {
         public static void UnpatchSelf(this Harmony harmony, Type patchClass)
         {
-            HarmonyPatch[] classLevelPatches = patchClass.GetCustomAttributes(typeof(HarmonyPatch), true)
-                                              .OfType<HarmonyPatch>()
-                                              .ToArray();
+            HarmonyPatch[] classLevelPatches = patchClass.GetCustomAttributes(typeof(HarmonyPatch), true).OfType<HarmonyPatch>().ToArray();
 
             foreach (HarmonyPatch patch in classLevelPatches)
             {
@@ -139,9 +155,7 @@ namespace BetterTeamUpgrades
             MethodInfo[] methods = patchClass.GetMethods(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
             foreach (MethodInfo method in methods)
             {
-                HarmonyPatch[] methodPatches = method.GetCustomAttributes(typeof(HarmonyPatch), true)
-                                        .OfType<HarmonyPatch>()
-                                        .ToArray();
+                HarmonyPatch[] methodPatches = method.GetCustomAttributes(typeof(HarmonyPatch), true).OfType<HarmonyPatch>().ToArray();
 
                 if (methodPatches.Length == 0)
                 {

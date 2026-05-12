@@ -1,7 +1,9 @@
 # BetterTeamUpgrades
 A **host only** and **better alternative** to shared upgrade mods such as _SharedUpgrades_ or _TeamUpgrades_. This mod implements a robus and maintainable shared upgrade system that supports both vanilla upgrades and modded upgrades, as well as late join upgrade syncing.  
 
-Thank you for **100,000+** downloads!!
+Thank you for **500,000+** downloads!
+
+Check out my other mod for all things health and healing quality of life improvements [BetterHeals](https://thunderstore.io/c/repo/p/MrBytesized/BetterHeals/)!
 
 ## Features
 

@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using BetterTeamUpgrades.Config;
 using System.Collections;
 using System.Collections.Generic;
@@ -65,12 +65,9 @@ namespace BetterTeamUpgrades.Patches
             Plugin.Log.LogInfo($"Late Join: Player {playerName} ({newPlayerID}) is ready. Starting sync...");
 
             List<PlayerAvatar> players = SemiFunc.PlayerGetAll();
-            List<string> steamIDs = players
-                .Select(p => SemiFunc.PlayerGetSteamID(p))
-                .Where(id => !string.IsNullOrEmpty(id))
-                .ToList();
+            List<string> steamIDs = players.Select(p => SemiFunc.PlayerGetSteamID(p)).Where(id => !string.IsNullOrEmpty(id)).ToList();
 
-            foreach (KeyValuePair<string, Dictionary<string, int>> kvp in StatsManager.instance.dictionaryOfDictionaries)
+            foreach (KeyValuePair<string, Dictionary<string, int>> kvp in Plugin.GetDictionaryOfDictionaries(StatsManager.instance))
             {
                 if (!kvp.Key.StartsWith("playerUpgrade")) continue;
 
